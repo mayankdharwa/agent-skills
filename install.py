@@ -1,92 +1,34 @@
 #!/usr/bin/env python3
-import json
-import os
+import subprocess
 import sys
-import datetime
 from pathlib import Path
 
 MARKETPLACE = "mayank-skills"
-PLUGIN_KEY = "mayank-skills@mayank-skills"
 GITHUB_REPO = "mayankdharwa/agent-skills"
+PLUGIN_KEY = f"{MARKETPLACE}@{MARKETPLACE}"
 
-PLUGIN_DIR = Path(__file__).parent.resolve() / "plugin"
 CLAUDE_DIR = Path.home() / ".claude"
-PLUGINS_FILE = CLAUDE_DIR / "plugins" / "installed_plugins.json"
-SETTINGS_FILE = CLAUDE_DIR / "settings.json"
-KNOWN_MARKETPLACES_FILE = CLAUDE_DIR / "plugins" / "known_marketplaces.json"
 
 
-def now_utc():
-    return datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
-
-
-def load_json(path, default):
-    return json.loads(path.read_text()) if path.exists() else default
-
-
-def save_json(path, data):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=2))
+def run(cmd):
+    result = subprocess.run(cmd, shell=True)
+    if result.returncode != 0:
+        sys.exit(f"Command failed: {cmd}")
 
 
 def main():
     if not CLAUDE_DIR.exists():
         sys.exit("Error: ~/.claude not found. Install Claude Code first.")
 
-    plugin_manifest = PLUGIN_DIR / ".claude-plugin" / "plugin.json"
-    version = json.loads(plugin_manifest.read_text())["version"]
+    print(f"Installing {PLUGIN_KEY} ...")
 
-    print(f"Installing mayank-skills v{version} from {PLUGIN_DIR} ...")
+    run(f"claude plugin marketplace add {GITHUB_REPO}")
+    print("  marketplace registered")
 
-    # 1. Symlink repo root into marketplace cache so Claude Code finds it locally
-    marketplace_cache = CLAUDE_DIR / "plugins" / "marketplaces" / MARKETPLACE
-    repo_root = PLUGIN_DIR.parent
-    if marketplace_cache.is_symlink() or marketplace_cache.exists():
-        if marketplace_cache.is_symlink():
-            marketplace_cache.unlink()
-        else:
-            import shutil
-            shutil.rmtree(marketplace_cache)
-    marketplace_cache.parent.mkdir(parents=True, exist_ok=True)
-    marketplace_cache.symlink_to(repo_root)
-    print(f"  symlinked marketplace cache → {repo_root}")
+    run(f"claude plugin install {PLUGIN_KEY}")
+    print("  plugin installed")
 
-    # 2. Register marketplace in known_marketplaces.json
-    marketplaces = load_json(KNOWN_MARKETPLACES_FILE, {})
-    marketplaces[MARKETPLACE] = {
-        "source": {"source": "github", "repo": GITHUB_REPO},
-        "installLocation": str(CLAUDE_DIR / "plugins" / "marketplaces" / MARKETPLACE),
-        "lastUpdated": now_utc(),
-    }
-    save_json(KNOWN_MARKETPLACES_FILE, marketplaces)
-    print("  registered marketplace in known_marketplaces.json")
-
-    # 3. Register plugin in installed_plugins.json
-    plugins = load_json(PLUGINS_FILE, {"version": 2, "plugins": {}})
-    plugins["plugins"][PLUGIN_KEY] = [{
-        "scope": "user",
-        "installPath": str(PLUGIN_DIR),
-        "version": version,
-        "installedAt": now_utc(),
-        "lastUpdated": now_utc(),
-    }]
-    save_json(PLUGINS_FILE, plugins)
-    print("  registered in installed_plugins.json")
-
-    # 4. Enable in settings.json
-    if not SETTINGS_FILE.exists():
-        print("  ~/.claude/settings.json not found — skipping (enable manually)")
-    else:
-        settings = load_json(SETTINGS_FILE, {})
-        settings.setdefault("enabledPlugins", {})[PLUGIN_KEY] = True
-        settings.setdefault("extraKnownMarketplaces", {})[MARKETPLACE] = {
-            "source": {"source": "github", "repo": GITHUB_REPO}
-        }
-        settings["enabledPlugins"].pop("mayank-skills@local", None)
-        save_json(SETTINGS_FILE, settings)
-        print("  enabled in settings.json")
-
-    print("\nDone. Run /reload-plugins in Claude Code to activate.")
+    print("\nDone. Skills are ready.")
 
 
 if __name__ == "__main__":

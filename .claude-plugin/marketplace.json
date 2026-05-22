@@ -1,0 +1,18 @@
+{
+  "name": "mayank-skills",
+  "owner": {
+    "name": "Mayank Dharwa",
+    "email": "mayank.dharwa@practo.com"
+  },
+  "metadata": {
+    "description": "Mayank's personal Claude Code skills and workflows"
+  },
+  "plugins": [
+    {
+      "name": "mayank-skills",
+      "source": "./plugin",
+      "description": "Personal skills, commands, and workflow automation",
+      "version": "0.1.0"
+    }
+  ]
+}
