@@ -1,6 +1,5 @@
 ---
-name: rule
-description: Short description shown in /help — save a coding rule or a behavioral/exploration rule to the second brain
+description: Save a coding or behavioral rule to the second brain
 argument-hint: [code:|behavior:] <rule description>
 allowed-tools: [Read, Write, Edit]
 ---

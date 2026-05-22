@@ -1,6 +1,5 @@
 ---
-name: side-quest
-description: Short description shown in /help — delegate a task to a new agent to conserve main context
+description: Delegate a task to a new agent to conserve main context
 argument-hint: <task instructions>
 allowed-tools: [Agent]
 ---
