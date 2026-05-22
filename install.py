@@ -9,7 +9,7 @@ MARKETPLACE = "mayank-skills"
 PLUGIN_KEY = "mayank-skills@mayank-skills"
 GITHUB_REPO = "mayankdharwa/agent-skills"
 
-PLUGIN_DIR = Path(__file__).parent.resolve()
+PLUGIN_DIR = Path(__file__).parent.resolve() / "plugin"
 CLAUDE_DIR = Path.home() / ".claude"
 PLUGINS_FILE = CLAUDE_DIR / "plugins" / "installed_plugins.json"
 SETTINGS_FILE = CLAUDE_DIR / "settings.json"
