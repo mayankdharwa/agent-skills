@@ -22,7 +22,7 @@ echo "Installing mayank-skills v$PLUGIN_VERSION from $PLUGIN_DIR ..."
 
 # 1. Register marketplace in known_marketplaces.json
 python3 << EOF
-import json, os
+import json, os, datetime
 
 f = "$KNOWN_MARKETPLACES_FILE"
 if os.path.exists(f):
@@ -33,7 +33,8 @@ else:
 
 data["$MARKETPLACE"] = {
     "source": {"source": "github", "repo": "$GITHUB_REPO"},
-    "installLocation": "$CLAUDE_DIR/plugins/marketplaces/$MARKETPLACE"
+    "installLocation": "$CLAUDE_DIR/plugins/marketplaces/$MARKETPLACE",
+    "lastUpdated": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
 }
 
 with open(f, "w") as fh:
