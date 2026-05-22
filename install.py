@@ -38,7 +38,20 @@ def main():
 
     print(f"Installing mayank-skills v{version} from {PLUGIN_DIR} ...")
 
-    # 1. Register marketplace in known_marketplaces.json
+    # 1. Symlink repo root into marketplace cache so Claude Code finds it locally
+    marketplace_cache = CLAUDE_DIR / "plugins" / "marketplaces" / MARKETPLACE
+    repo_root = PLUGIN_DIR.parent
+    if marketplace_cache.is_symlink() or marketplace_cache.exists():
+        if marketplace_cache.is_symlink():
+            marketplace_cache.unlink()
+        else:
+            import shutil
+            shutil.rmtree(marketplace_cache)
+    marketplace_cache.parent.mkdir(parents=True, exist_ok=True)
+    marketplace_cache.symlink_to(repo_root)
+    print(f"  symlinked marketplace cache → {repo_root}")
+
+    # 2. Register marketplace in known_marketplaces.json
     marketplaces = load_json(KNOWN_MARKETPLACES_FILE, {})
     marketplaces[MARKETPLACE] = {
         "source": {"source": "github", "repo": GITHUB_REPO},
@@ -48,7 +61,7 @@ def main():
     save_json(KNOWN_MARKETPLACES_FILE, marketplaces)
     print("  registered marketplace in known_marketplaces.json")
 
-    # 2. Register plugin in installed_plugins.json
+    # 3. Register plugin in installed_plugins.json
     plugins = load_json(PLUGINS_FILE, {"version": 2, "plugins": {}})
     plugins["plugins"][PLUGIN_KEY] = [{
         "scope": "user",
@@ -60,7 +73,7 @@ def main():
     save_json(PLUGINS_FILE, plugins)
     print("  registered in installed_plugins.json")
 
-    # 3. Enable in settings.json
+    # 4. Enable in settings.json
     if not SETTINGS_FILE.exists():
         print("  ~/.claude/settings.json not found — skipping (enable manually)")
     else:
