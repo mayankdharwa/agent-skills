@@ -65,4 +65,4 @@ else:
 EOF
 
 echo ""
-echo "Done. Restart Claude Code to activate the plugin."
+echo "Done. Run /reload-plugins in Claude Code to activate."
