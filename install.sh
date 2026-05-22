@@ -34,8 +34,8 @@ data["plugins"]["$PLUGIN_KEY"] = [{
     "scope": "user",
     "installPath": "$PLUGIN_DIR",
     "version": "$PLUGIN_VERSION",
-    "installedAt": datetime.datetime.utcnow().isoformat() + "Z",
-    "lastUpdated": datetime.datetime.utcnow().isoformat() + "Z"
+    "installedAt": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
+    "lastUpdated": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
 }]
 
 with open(plugins_file, "w") as f:
