@@ -19,6 +19,8 @@ agent-skills/
 | `/side-quest <instructions>` | slash command | Delegates a task to a new agent to keep main context clean |
 | `/rule <rule>` | slash command | Saves a coding rule to the second brain |
 | `coding-rules` | auto-skill | Reads second-brain rules before writing any code |
+| `feature-development` | auto-skill | Drives a multi-phase exploration → spec → build process for a feature |
+| `consistency-review` | auto-skill | Reviews a set of markdown files for internal consistency (cross-file contradictions, broken links) via two deterministic scripts |
 
 ---
 
