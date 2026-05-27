@@ -6,9 +6,9 @@ Close a build section when every item in its `code-review/<section>.md` is tagge
 
 - Build phase is active (`build/` exists; `build/PROGRESS.md` shows the section row).
 - `build/code-review/<section>.md` exists with at least one item.
-- Every item carries one of the four tags: `fixed`, `wont-fix: <reason>`, `decision: <text>`, `spec-changed: <link>`.
+- Every item carries one of the four tags: `fixed`, `wont-fix: <reason>`, `decision: <text>`, `spec-changed: <link>`. Tags are written by the **Review Agent** after independently verifying the Coding Agent's response and the code (see `reference/doc-ownership.md`).
 
-If any item is untagged, surface and refuse to archive — user must tag first.
+If any item is untagged, surface and refuse to archive. The Coding Agent does **not** self-tag to clear the block — surface the untagged items, identify whether each is awaiting a Coding Agent response or awaiting Review Agent verification, and stop. Resolution lands through the normal review cycle (or user tie-break).
 
 Lift criteria + immediate-lift mechanics: `reference/lift-criteria.md`.
 
@@ -16,7 +16,12 @@ Lift criteria + immediate-lift mechanics: `reference/lift-criteria.md`.
 
 ### 1. Verify all items tagged
 
-Read `build/code-review/<section>.md`. Check every item. If any are untagged, surface the list of untagged items and remind the user that each must carry one of: `fixed` / `wont-fix: <reason>` / `decision: <text>` / `spec-changed: <link>`. Stop. Do not proceed.
+Read `build/code-review/<section>.md`. Check every item. If any are untagged, surface the list with the current state of each:
+- **No Coding Agent response yet** — awaiting Coding Agent action.
+- **Response present, no Review Agent tag** — awaiting Review Agent verification.
+- **Response and follow-up finding, no tag** — Review Agent disagreed; needs another response cycle or user tie-break.
+
+Stop. Do not proceed. The Coding Agent does not write tags to unblock archive.
 
 ### 2. DECISIONS sweep on `decision:` tags
 
@@ -30,7 +35,7 @@ Enumerate items tagged `decision: ...`. Skip any already lifted via immediate-li
 > Recommend: **LIFT to DECISIONS.md #N | LEAVE inline**.
 > Confirm / flip / re-discuss?
 
-For confirmed LIFTs: append entry to `DECISIONS.md` (next monotonic `#N`) with backlink to the source code-review item (file + item identifier).
+For confirmed LIFTs: append a new entry to `DECISIONS.md` using the canonical shape in `templates/decisions.md`. Determine `#N` per `reference/sequence-rules.md`. `Source:` is `[build/code-review/<section>.md item "<one-line summary>"]` — the code-review item stays in place (the lifecycle move at step 3 archives the file, but the entry's source link captures the live-path identity at lift time).
 
 Cross-feature check: if the decision affects code outside this feature, route to `procedures/cross-feature-lift.md`.
 
@@ -42,7 +47,7 @@ Determine archive filename:
 
 Move: `git mv build/code-review/<section>.md build/_archive/code-review/<section>_<YYYY-MM-DD>_<seq>.md`.
 
-The live file is removed — `ls build/code-review/` then shows only sections with open items.
+The file is no longer at the live path — `ls build/code-review/` then shows only sections with open items.
 
 ### 4. `build/testing/<section>.md` stays in place
 

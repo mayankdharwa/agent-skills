@@ -32,19 +32,7 @@ Numbering is **independent** of per-feature DECISIONS files. Repo-root has its o
 
 ### 4. Write the entry
 
-Use the same template as per-feature (`templates/decisions.md`):
-
-```markdown
-## #N — <short title>
-
-*Lifted: YYYY-MM-DD · Source: <as determined>*
-
-**Decision:** <one sentence>
-
-**Why:** <one paragraph — full rationale + key alternatives, especially for originated-at-repo entries>
-
-**Implications:** <optional>
-```
+Append a new entry to `docs/DECISIONS.md` (repo root) using the canonical shape in `templates/decisions.md`. `Source:` line is per step 3 (link to the per-feature entry for promoted decisions; `discussion` or `<date> session notes` for originated-at-repo entries). For originated entries, the **Why** paragraph carries the full rationale since there is no inline doc to defer to.
 
 ### 5. Keep the per-feature entry in place (if promoted)
 

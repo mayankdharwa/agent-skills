@@ -46,21 +46,9 @@ Surface each callout to the user with your pre-judgment:
 
 The user answers per callout: `confirm` (apply skill's recommendation), `flip` (do the opposite), or `re-discuss` (skip for now; the callout stays inline but no entry written).
 
-For confirmed LIFTs:
-- Determine next `#M` in `DECISIONS.md` (read the file, find highest existing `## #N`, use N+1).
-- Append entry using `templates/decisions.md` format:
-  ```markdown
-  ## #M — <short title>
+For confirmed LIFTs: append a new entry to `DECISIONS.md` using the canonical shape in `templates/decisions.md`. Determine `#M` per `reference/sequence-rules.md` (per-feature monotonic). `Source:` is a link to the inline `Review comment` callout in the exploration doc.
 
-  *Lifted: YYYY-MM-DD · Source: [exploration/<topic>/<TOPIC>-EXPLORATION.md §X Review comment #N](...)*
-
-  **Decision:** <one sentence>
-
-  **Why:** <one paragraph including alternatives>
-
-  **Implications:** <optional>
-  ```
-- The inline callout stays untouched in the exploration doc — do NOT delete or rewrite it. It carries the full context; the DECISIONS entry is the executive summary with a backlink.
+The inline callout stays untouched in the exploration doc — do NOT delete or rewrite it.
 
 ### 3. Check for cross-feature scope
 
@@ -76,7 +64,7 @@ Move the file: `git mv exploration/<topic>/PROGRESS.md exploration/<topic>/_arch
 
 (If not a git repo, use `mv`.)
 
-Confirm via `ls exploration/<topic>/` — `PROGRESS.md` should be gone.
+Confirm via `ls exploration/<topic>/` — `PROGRESS.md` is no longer at the live path.
 
 ### 5. Update top-level `PROGRESS.md`
 

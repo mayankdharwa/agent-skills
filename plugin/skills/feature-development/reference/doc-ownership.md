@@ -2,9 +2,19 @@
 
 Read before editing any tracked file. Edits land per the role and the path.
 
+**Ownership applies to content edits, not lifecycle moves.** Archive moves (`git mv <file> _archive/...`), file splits, and renames are lifecycle transitions executed by whichever procedure owns the transition. They do not require the file-owner role to perform them. The relevant procedure gates the move with its own preconditions (e.g., section-archive requires every item Review-Agent-tagged before moving `code-review/<section>.md`).
+
 - `exploration/<topic>/*-EXPLORATION.md`, topic `PROGRESS.md` — edit freely.
 - `build/testing/<section>.md`, `build/PROGRESS.md` — edit freely.
-- `build/code-review/<section>.md` — Review Agent + Coding Agent both write here. Review Agent appends findings; Coding Agent tags them (`fixed` / `wont-fix:` / `decision:` / `spec-changed:`). Pure mechanical fixes made by the Coding Agent during its own work need no entry.
+- `build/code-review/<section>.md` — Review Agent owns the file. Review Agent appends findings and, after independently verifying the Coding Agent's work, writes the resolution tag (`fixed` / `wont-fix: <reason>` / `decision: <text>` / `spec-changed: <link>`). Coding Agent appends a `> Coding Agent response:` block under each item — one line describing the action taken or, for a refusal, the reason — but does not write tag lines. Neither role edits the other's lines. Pure mechanical fixes made by the Coding Agent during its own work (not surfaced by a Review Agent) need no entry.
+
+  Response block shape:
+  > **Coding Agent response** *(YYYY-MM-DD)*
+  >
+  > **Action:** fixed | refused | deferred | spec-change-needed
+  > **Detail:** <one line — what was changed, or why refused, or pointer to OPEN-QUESTIONS / surgical-reopen>
+
+  Review Agent reads the response, verifies against the code, and writes the tag. If the Review Agent disagrees with a refusal, it leaves the item untagged and appends a follow-up finding — the section cannot archive until every item carries a tag, which forces resolution.
 - `OPEN-QUESTIONS.md` — add entries freely. Resolving requires user confirmation.
 - `spec/*`, `OBJECTIVE.md`, `DECISIONS.md`, `MIGRATION-CHECKLIST.md`, `references/*` — confirm with user before any edit.
 - `_archive/*` — never edit. Only move files in.

@@ -13,11 +13,11 @@ Do not engage for bugfixes, small refactors, single-file edits, or tasks expecte
 
 ## Roles
 
-- **Coding Agent** — drives work across phases. The skill, when invoked, acts as the Coding Agent.
-- **Review Agent** — appends findings to `build/code-review/<section>.md`. The Coding Agent tags them as it works through them.
-- **User** — locks decisions, confirms protected-doc edits, answers open questions.
+- **Coding Agent** — drives work across phases. The skill, when invoked, acts as the Coding Agent. In code-review, appends a `> Coding Agent response:` block under each item (action taken or refusal reason). Does not write tag lines.
+- **Review Agent** — owns `build/code-review/<section>.md`. Appends findings, and after the Coding Agent posts a response, independently verifies against the code and writes the resolution tag (`fixed` / `wont-fix:` / `decision:` / `spec-changed:`).
+- **User** — locks decisions, confirms protected-doc edits, answers open questions, breaks ties when Review Agent and Coding Agent disagree.
 
-In the build phase, the cycle is TDD: write tests → write code → review → repeat. Each section in `build/` carries dual test+code status (see `templates/progress-build.md`).
+In the build phase, the cycle is TDD: write tests → write code → review → respond → independently verify and tag → repeat. Each section in `build/` carries dual test+code status (see `templates/progress-build.md`).
 
 ## Operating posture
 

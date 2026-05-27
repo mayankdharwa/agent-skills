@@ -16,7 +16,7 @@ Resolved entries — one of four forms:
 - **Q5** — ✅ Resolved by discussion (no artifact — answer: <one-line summary>)
 - **Q9** — ⊘ No longer relevant (scope changed; see DECISIONS.md #7)
 
-Detail sections are removed at resolution. Exception: the ⊘ form keeps a one-line "why irrelevant" inline since there may be no target doc to absorb it.
+Detail sections are removed at resolution. For the ⊘ form, context lives in the parenthetical pointer on the index line itself (e.g., `(scope changed; see DECISIONS.md #7)`) — no separate inline note is written.
 
 Question numbers (Q<N>) are per-feature monotonic. Numbers never reuse, even when resolved.
 -->

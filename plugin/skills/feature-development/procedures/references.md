@@ -24,13 +24,17 @@ If `docs/<feature>/references/` doesn't exist:
   One line per reference file: short hook describing what it covers and when to read it.
   ```
 
-### 3. Lazy-create `references/PROGRESS.md` if this is part of an active batch
+### 3. Lazy-create `references/PROGRESS.md` if reference work is active
 
-If user is creating multiple references as a batch (e.g., "mapping the legacy Fabric codebase" — multi-session work):
+Create `references/PROGRESS.md` when either condition holds:
+- User is creating multiple references as a batch (e.g., "mapping the legacy Fabric codebase" — multi-session work).
+- A unit is deferred via the research path (`procedures/defer.md`) and is awaiting this reference. Presence of `references/PROGRESS.md` signals "research is in flight" for the loop-back at topic-lock.
+
+In both cases:
 - If `references/PROGRESS.md` doesn't exist, create it from `templates/progress-topic.md` with kickoff narrative and the new references as `🚧` rows.
 - If it exists, add the new reference as a `🚧` row.
 
-If this is a single one-off reference, no `references/PROGRESS.md` needed.
+If this is a single one-off reference not triggered by a defer and not part of a batch, no `references/PROGRESS.md` needed.
 
 ### 4. Get reference filename and content from user
 

@@ -6,9 +6,9 @@ Apply in order:
 
 1. **Answerable or applicable now without user input?**
    - Exploration: no — exploration decisions need user lock. Skip to step 2.
-   - Build, mechanical fix by the Coding Agent: apply. Log as `fixed` in `code-review/<section>.md` *only if a Review Agent surfaced it*; otherwise no entry.
+   - Build, mechanical fix by the Coding Agent: apply. *Only if a Review Agent surfaced it*, append a `> Coding Agent response:` block under the item describing the action; the Review Agent verifies and writes the `fixed` tag. Otherwise no entry.
 
-2. **Needs user input now and user is available?** Discuss → lock as a `Review comment` callout (exploration; route to `procedures/unit-lock.md`) or as a `decision:` tag (build code-review).
+2. **Needs user input now and user is available?** Discuss → lock as a `Review comment` callout (exploration; route to `procedures/unit-lock.md`) or, for a build code-review item, the Coding Agent records the user's call in its response block and applies the change; the Review Agent verifies and writes the `decision: <text>` tag.
 
 3. **Needs user input later?** Route to `procedures/defer.md`. The two-path question creates an `OPEN-QUESTIONS.md` entry with `blocks:` or a reference-creation job under `references/`. The current row gets a `— deferred: <pointer>` marker.
 

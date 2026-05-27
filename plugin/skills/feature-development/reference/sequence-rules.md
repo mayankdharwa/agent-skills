@@ -11,7 +11,7 @@ Read when generating or validating a sequence number for an archive filename or 
 ## Numbered artifacts
 
 - **`Q<N>` in `OPEN-QUESTIONS.md`** — per-feature monotonic. Numbers never reuse, even when resolved.
-- **`Review comment #N`** — per-file monotonic. Numbers never reuse, even after file splits. On split, original numbers stay; only file-path portion of backlinks updates.
+- **`Review comment #N`** — per-file monotonic. On file split, each callout keeps its original number — never renumber. Backlinks resolve via `<file-path>:#<N>`; after a split, only the file-path portion of the backlink updates, the number stays. New callouts in either split child continue per-file from that file's current max.
 - **Migration item IDs (`V1`, `V2`, `F1`, ...)** — per-team monotonic. Prefix is the first letters of the owning team's `##` heading.
 - **`DECISIONS.md #N`** — per-feature monotonic. Repo-root `docs/DECISIONS.md` has its own independent counter.
 

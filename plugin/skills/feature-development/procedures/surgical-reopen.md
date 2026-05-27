@@ -59,9 +59,11 @@ Determine which topic the edit belongs to:
 
 Create new `exploration/<topic>/PROGRESS.md` (NOT edit an archive). Use `templates/progress-topic.md` with `## Current focus — surgical reopen` header and a narrative naming the unit being reopened and the trigger. Initial row: one `🚧` row for the unit being reopened. Presence of this file signals the phase is reopened.
 
+Then update top-level `docs/<feature>/PROGRESS.md` to reflect reality: if the `exploration` row is `✅` (phase was locked), flip it back to `🚧` and add the pointer `- 🚧 <topic> → exploration/<topic>/PROGRESS.md` underneath. If the `exploration` row is already `🚧` (a concurrent reopen exists), just add the pointer. The top-level row stays `🚧` while any topic `PROGRESS.md` is alive under `exploration/`.
+
 ### Step 2b.2: Add a new `Review comment` callout
 
-Ask the user for the substantive content (why the reopen is needed, alternatives considered, trade-off). Append a `Review comment #N` callout in the topic's `*-EXPLORATION.md` (next monotonic number per `reference/sequence-rules.md`; never reuse, even across split files). Use `templates/review-comment.md`.
+Ask the user for the substantive content (why the reopen is needed, alternatives considered, trade-off). Append a `Review comment #N` callout in the file that holds the unit being reopened (next monotonic number per `reference/sequence-rules.md` — read that file, take highest `#M` + 1). Use `templates/review-comment.md`.
 
 If the trigger came from a `build/code-review/<section>.md` item, include a `Triggered by:` line linking to it.
 
@@ -73,24 +75,33 @@ Confirm with user before writing — the spec is confirm-before-edit per `refere
 
 ### Step 2b.4: Lift to `DECISIONS.md` if course-altering
 
-Apply the three lift criteria from `reference/lift-criteria.md`. If the decision qualifies, append to `DECISIONS.md` with backlink to the new Review comment. Cross-feature check: if the decision affects code outside this feature, also route to `procedures/cross-feature-lift.md`.
+Apply the three lift criteria from `reference/lift-criteria.md`. If the decision qualifies, append a new entry to `DECISIONS.md` using the canonical shape in `templates/decisions.md`. `Source:` is a link to the new Review comment in the exploration doc. Cross-feature check: if the decision affects code outside this feature, also route to `procedures/cross-feature-lift.md`.
 
 ### Step 2b.5: Backlink from the trigger
 
-If the surgical reopen was triggered by a `build/code-review/<section>.md` item, edit that item to add the tag:
+If the surgical reopen was triggered by a `build/code-review/<section>.md` item, append a `> Coding Agent response:` block under that item (per `reference/doc-ownership.md`). Use:
 
 ```
-spec-changed: see exploration/<topic>/<TOPIC>-EXPLORATION.md §N (Review comment #M)
+> **Coding Agent response** *(YYYY-MM-DD)*
+>
+> **Action:** spec-change-needed
+> **Detail:** see exploration/<topic>/<TOPIC>-EXPLORATION.md §N (Review comment #M); spec/<FILE>.md edited in place.
 ```
 
-### Step 2b.6: Archive the new `PROGRESS.md`
+The Review Agent reads the response, verifies the spec edit landed, and writes the `spec-changed: <link>` tag. The Coding Agent does not write the tag.
+
+### Step 2b.6: Archive the new `PROGRESS.md` and restore top-level
 
 Flip the `🚧` row to `✅`, then archive:
 
 - Path: `exploration/<topic>/_archive/PROGRESS_<YYYY-MM-DD>_<seq>.md`
 - `<seq>` per `reference/sequence-rules.md` (per-directory monotonic across time — resumes from prior archives).
 
-End-of-procedure summary: surgical reopen complete for `<topic>/<unit>`; the new Review comment number and location; the spec file edited; whether a DECISIONS entry was lifted; whether a code-review item was tagged `spec-changed`; the archive path of the resurrected `PROGRESS.md`.
+Then restore top-level `PROGRESS.md`:
+- Remove the pointer line for this topic.
+- Check whether any other topic `PROGRESS.md` remains under `exploration/` (concurrent reopen, or a topic still in flight). If none, flip `🚧 exploration → ✅`. If any remain, leave the row `🚧`.
+
+End-of-procedure summary: surgical reopen complete for `<topic>/<unit>`; the new Review comment number and location; the spec file edited; whether a DECISIONS entry was lifted; whether a Coding Agent response was appended to a triggering code-review item (awaiting Review Agent verification + `spec-changed:` tag); the archive path of the resurrected `PROGRESS.md`.
 
 ## Errors
 
@@ -107,8 +118,9 @@ End-of-procedure summary: surgical reopen complete for `<topic>/<unit>`; the new
 - A new `Review comment #N` exists in the topic's exploration doc with a monotonic number greater than any pre-existing callout.
 - The spec file is edited in place (no version markers, no changelog inside the doc).
 - If lifted: `DECISIONS.md` has a new entry with `Source:` backlinking to the new Review comment.
-- If trigger was a code-review item: that item carries a `spec-changed:` tag pointing at the new Review comment.
+- If trigger was a code-review item: that item carries a `> Coding Agent response:` block with `Action: spec-change-needed` and a pointer to the new Review comment + spec edit. The `spec-changed:` tag is then written by the Review Agent after verification — not by this procedure.
 - A resurrected `exploration/<topic>/PROGRESS.md` does NOT exist at the live path; an archive `_archive/PROGRESS_<YYYY-MM-DD>_<seq>.md` exists with the next monotonic `<seq>` for that directory.
+- Top-level `PROGRESS.md`: the pointer line for this topic is gone. If no other topic `PROGRESS.md` remains under `exploration/`, the `exploration` row is `✅`; otherwise it is `🚧` with the remaining pointers.
 
 ## Breaking-change exception
 

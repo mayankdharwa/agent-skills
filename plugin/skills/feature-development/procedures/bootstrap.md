@@ -32,18 +32,18 @@ If not yet supplied. Validate: lowercase kebab-case, no spaces. Suggest the name
 
 Walk the user through guided sections — do not write substance on their behalf:
 
-- **What we're building** (1–3 sentences)
-- **Why** (1–3 sentences — the motivation, often a constraint or stakeholder ask)
-- **In scope** (bulleted list)
-- **Out of scope** (bulleted list)
+- **What we're building** (1–3 sentences) — required.
+- **Why** (1–3 sentences — the motivation, often a constraint or stakeholder ask) — required.
+- **In scope** (bulleted list) — may start empty if not yet decided.
+- **Out of scope** (bulleted list) — may start empty if not yet decided.
 
-Capture exact phrasing. Do not rewrite.
+Capture exact phrasing. Do not rewrite. Do not proceed past step 3 until both required sections (What / Why) have user-provided content — the rendered `OBJECTIVE.md` must never contain placeholder text from the template. If the user is not ready to write What or Why, stop bootstrap and resume when they are.
 
 ### 4. Create the feature dir
 
 Path: `docs/<feature>/`. Create the following silently after content is gathered:
 
-- `OBJECTIVE.md` — from `templates/objective.md`, filled with user-provided content.
+- `OBJECTIVE.md` — from `templates/objective.md`, with every `<...>` placeholder replaced by user-provided content (required sections) or an empty list (optional scope sections). No `<...>` placeholder may survive into the rendered file.
 - `PROGRESS.md` — from `templates/progress-top-level.md`, with all three phase rows (`exploration`, `spec`, `build`) as `⏳`.
 - `OPEN-QUESTIONS.md` — from `templates/open-questions.md`, empty index sections.
 - `DECISIONS.md` — copy `templates/decisions.md` as-is. The template renders to a header + invisible HTML-comment guidance + an empty entry area; the example entry inside the template is comment-only and does not appear in the rendered file.

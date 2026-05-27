@@ -91,7 +91,7 @@ Report: the new Q-number and what it blocks.
      - **Q<N>** — ⊘ No longer relevant (scope changed; see <pointer>)
      ```
 
-4. **Remove the `## Details` section for Q<N>**. The resolved-index line carries the title and pointer; details that mattered are in the resolution target. **Exception:** for "No longer relevant", keep a one-line "why irrelevant" inline since there may be no target doc.
+4. **Remove the `## Details` section for Q<N>**. The resolved-index line carries the title and pointer; details that mattered are in the resolution target. For `⊘ No longer relevant` resolutions, the parenthetical pointer on the index line itself carries the context (e.g., `(scope changed; see DECISIONS.md #7)`) — no separate inline note is written or preserved.
 
 5. Check whether any `PROGRESS.md` rows reference this Q<N> via `BLOCKED by Q<N>`. If yes, surface to the user that the row may now be unblocked. Do not auto-unblock.
 

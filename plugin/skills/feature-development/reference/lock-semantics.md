@@ -27,5 +27,6 @@ Touched only on lock-scope transitions:
 1. **Phase begins** (first topic / section starts) — flip the phase line from `⏳` to `🚧`; add a pointer to the active topic's / section's `PROGRESS.md`.
 2. **Topic / section locks** — remove its pointer from under the phase line.
 3. **Last topic / section in a phase locks** — flip the phase line from `🚧` to `✅`.
+4. **Surgical reopen begins** (`procedures/surgical-reopen.md`) — if a previously locked phase row is `✅`, flip it back to `🚧` and add a pointer to the resurrected topic `PROGRESS.md`. On reopen close, treat as triggers 2–3: remove the pointer; flip back to `✅` if no other live topic `PROGRESS.md` remains.
 
 No other edits. Top-level `PROGRESS.md` lists only *active* topics under a `🚧` phase row; locked topics' pointers are removed at lock-time.

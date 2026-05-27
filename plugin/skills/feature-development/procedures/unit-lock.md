@@ -38,12 +38,12 @@ In the `## Progress` table, flip the row icon from `🚧` to `✅`. Row format s
 ```
 
 Update the `## Current focus` narrative:
-- If there's a next `⏳` unit (skip deferred rows): name it as the new focus. Update the narrative to reference what was just locked.
-- If there are no more `⏳` rows (all are `✅` or `⏳ ... — deferred:`): the topic is about to lock. Set narrative to:
-  > Topic locked. All units ✅ — running DECISIONS.md sweep, then archive.
+- If there's a next non-deferred `⏳` unit: name it as the new focus. Update the narrative to reference what was just locked.
+- If no non-deferred `⏳` rows remain (everything else is `✅` or `⏳ ... — deferred:`): set narrative to:
+  > All non-deferred units ✅. Routing to topic-lock.
 
-  Then route to `procedures/topic-lock.md`.
-- The `Next up:` line names the next unit (skipping `⏳ ... — deferred:` rows).
+  Then route to `procedures/topic-lock.md`. Topic-lock handles the case-split: if deferred rows exist, it runs loop-back; if not, it proceeds to the sweep + archive. Unit-lock does not prejudge which path.
+- The `Next up:` line names the next non-deferred `⏳` unit, or `(none — routing to topic-lock)` if none remain.
 
 ### 4. Check for smells
 

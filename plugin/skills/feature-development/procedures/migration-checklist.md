@@ -36,7 +36,7 @@ Add or close items in `MIGRATION-CHECKLIST.md`. Tracks work owned by external te
    - `Access-Gateway` → `AG`
    - `Patient-Booking` → `PB`
 
-   If the prefix is ambiguous or could collide with another team in the same file, ask user. Prefix is per-section monotonic; numbers under each team are independent (`V1, V2, ...` separate from `F1, F2, ...`).
+   If the prefix is ambiguous or could collide with another team in the same file, ask user. Numbering is per-team monotonic; each team's counter is independent (`V1, V2, ...` separate from `F1, F2, ...`).
 
 4. **Ask for tag**. One of:
    - **Mandatory** — must be done before project go-live. Blocks cutover.
