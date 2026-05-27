@@ -13,9 +13,15 @@ Do not engage for bugfixes, small refactors, single-file edits, or tasks expecte
 
 ## Roles
 
-- **Coding Agent** — drives work across phases. The skill, when invoked, acts as the Coding Agent. In code-review, appends a `> Coding Agent response:` block under each item (action taken or refusal reason). Does not write tag lines.
-- **Review Agent** — owns `build/code-review/<section>.md`. Appends findings, and after the Coding Agent posts a response, independently verifies against the code and writes the resolution tag (`fixed` / `wont-fix:` / `decision:` / `spec-changed:`).
+- **Coding Agent** — drives work across phases. The skill, when invoked, acts as the Coding Agent **by default**. In code-review, appends a `> Coding Agent response:` block under each item (action taken or refusal reason). Does not write tag lines.
+- **Review Agent** — owns `build/code-review/<section>.md`. Appends findings, and after the Coding Agent posts a response, independently verifies against the code and writes the resolution tag (`fixed` / `wont-fix:` / `decision:` / `spec-changed:`). Entered by an explicit role declaration at invocation (see below); its build-phase entry and loop are `procedures/code-review.md`.
 - **User** — locks decisions, confirms protected-doc edits, answers open questions, breaks ties when Review Agent and Coding Agent disagree.
+
+### Role declaration on invocation
+
+The skill operates as **one** role per session. Default is the Coding Agent. To run as the Review Agent instead, the invocation declares it — e.g. starting a fresh session and invoking the skill with a prompt like "You are the Code Review Agent" (or "Review Agent"). Treat any such role-naming declaration as selecting that role for the whole session.
+
+Run state detection either way (below). Then route by role: a Review Agent declaration with build phase active → `procedures/code-review.md`. No declaration → Coding Agent; route by the action as usual. The two roles never edit each other's lines in `build/code-review/<section>.md` (see `reference/doc-ownership.md`).
 
 In the build phase, the cycle is TDD: write tests → write code → review → respond → independently verify and tag → repeat. Each section in `build/` carries dual test+code status (see `templates/progress-build.md`).
 
@@ -36,7 +42,7 @@ In the build phase, the cycle is TDD: write tests → write code → review → 
 2. Read `docs/<feature>/PROGRESS.md`. Identify which of the three phase rows (`exploration`, `spec`, `build`) is `🚧`. `references/` is a sidecar — no phase row.
 3. If a phase row is `🚧`, read the pointer it carries (e.g., `→ exploration/schema/PROGRESS.md`) for the active topic / section.
 4. Read `OPEN-QUESTIONS.md` index to know what's blocked.
-5. Route to the relevant procedure (see below).
+5. Route by role and action (see below). Under a Review Agent declaration with build phase active, route to `procedures/code-review.md`.
 
 If `PROGRESS.md` is malformed or unreadable, surface and ask. Do not guess.
 
@@ -47,6 +53,7 @@ If `PROGRESS.md` is malformed or unreadable, surface and ask. Do not guess.
 - Defer a unit / can't lock yet → `procedures/defer.md`
 - Topic done / all rows `✅` in topic → `procedures/topic-lock.md`
 - All exploration topics locked / ready to distill spec → `procedures/distill.md`
+- Invoked as Review Agent / review the active build section → `procedures/code-review.md`
 - Section done / all `code-review/<section>.md` items tagged → `procedures/section-archive.md`
 - Surgically reopen / proposed edit to `spec/*` → `procedures/surgical-reopen.md`
 - Add open question / resolve `Q<N>` → `procedures/open-questions.md`
@@ -62,7 +69,7 @@ Each procedure file is self-contained: preconditions, steps, errors, postconditi
 
 Read on-demand when the topic comes up:
 
-- `reference/sequence-rules.md` — archive sequences (`<seq>` resolution), numbered artifacts (`#N`, `Q<N>`, `Review comment #N`, migration IDs).
+- `reference/sequence-rules.md` — archive sequences (`<seq>` resolution), numbered artifacts (`#N`, `Q<N>`, `Review comment #N`, `Finding #N`, migration IDs).
 - `reference/smells.md` — state-shape problems to surface.
 - `reference/section-split.md` — when a `build/` or exploration file needs splitting; also the positive definition of a section.
 - `reference/doc-ownership.md` — edit rules per path.
@@ -82,3 +89,4 @@ Read the template before writing a new artifact:
 - `templates/open-questions.md` — feature `OPEN-QUESTIONS.md`.
 - `templates/decisions.md` — feature `DECISIONS.md`.
 - `templates/review-comment.md` — inline `Review comment` callout.
+- `templates/code-review-finding.md` — `build/code-review/<section>.md` finding item (Review Agent), with the response-block and resolution-tag shapes.
