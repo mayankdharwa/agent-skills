@@ -6,7 +6,7 @@ Read before editing any tracked file. Edits land per the role and the path.
 
 - `exploration/<topic>/*-EXPLORATION.md`, topic `PROGRESS.md` — edit freely.
 - `build/testing/<section>.md`, `build/PROGRESS.md` — edit freely.
-- `build/code-review/<section>.md` — Review Agent owns the file. Review Agent appends findings and, after independently verifying the Coding Agent's work, writes the resolution tag (`fixed` / `wont-fix: <reason>` / `decision: <text>` / `spec-changed: <link>`). Coding Agent appends a `> Coding Agent response:` block under each item — one line describing the action taken or, for a refusal, the reason — but does not write tag lines. Neither role edits the other's lines. Pure mechanical fixes made by the Coding Agent during its own work (not surfaced by a Review Agent) need no entry.
+- `build/code-review/<section>.md` — Review Agent owns the file. Review Agent appends findings (shape in `templates/code-review-finding.md`; entry + loop in `procedures/code-review.md`) and, after independently verifying the Coding Agent's work, writes the resolution tag (`fixed` / `wont-fix: <reason>` / `decision: <text>` / `spec-changed: <link>`). Coding Agent appends a `> **Coding Agent response**` block (shape below) under each item — one line describing the action taken or, for a refusal, the reason — but does not write tag lines. Neither role edits the other's lines. Pure mechanical fixes made by the Coding Agent during its own work (not surfaced by a Review Agent) need no entry.
 
   Response block shape:
   > **Coding Agent response** *(YYYY-MM-DD)*

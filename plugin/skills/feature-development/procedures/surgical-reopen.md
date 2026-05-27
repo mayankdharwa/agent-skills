@@ -79,7 +79,7 @@ Apply the three lift criteria from `reference/lift-criteria.md`. If the decision
 
 ### Step 2b.5: Backlink from the trigger
 
-If the surgical reopen was triggered by a `build/code-review/<section>.md` item, append a `> Coding Agent response:` block under that item (per `reference/doc-ownership.md`). Use:
+If the surgical reopen was triggered by a `build/code-review/<section>.md` item, append a `> **Coding Agent response**` block under that item (per `reference/doc-ownership.md`). Use:
 
 ```
 > **Coding Agent response** *(YYYY-MM-DD)*
@@ -118,7 +118,7 @@ End-of-procedure summary: surgical reopen complete for `<topic>/<unit>`; the new
 - A new `Review comment #N` exists in the topic's exploration doc with a monotonic number greater than any pre-existing callout.
 - The spec file is edited in place (no version markers, no changelog inside the doc).
 - If lifted: `DECISIONS.md` has a new entry with `Source:` backlinking to the new Review comment.
-- If trigger was a code-review item: that item carries a `> Coding Agent response:` block with `Action: spec-change-needed` and a pointer to the new Review comment + spec edit. The `spec-changed:` tag is then written by the Review Agent after verification — not by this procedure.
+- If trigger was a code-review item: that item carries a `> **Coding Agent response**` block with `Action: spec-change-needed` and a pointer to the new Review comment + spec edit. The `spec-changed:` tag is then written by the Review Agent after verification — not by this procedure.
 - A resurrected `exploration/<topic>/PROGRESS.md` does NOT exist at the live path; an archive `_archive/PROGRESS_<YYYY-MM-DD>_<seq>.md` exists with the next monotonic `<seq>` for that directory.
 - Top-level `PROGRESS.md`: the pointer line for this topic is gone. If no other topic `PROGRESS.md` remains under `exploration/`, the `exploration` row is `✅`; otherwise it is `🚧` with the remaining pointers.
 
