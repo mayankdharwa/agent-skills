@@ -71,10 +71,11 @@ The Review Agent owns `build/code-review/<section>.md`. If it doesn't exist, cre
 For each finding, the cycle is:
 
 1. **You append the finding.** Stop there for new findings — the Coding Agent responds next.
-2. **Coding Agent appends a `> Coding Agent response:` block** under the item (its shape is
-   in `reference/doc-ownership.md`). You do not write that block.
+2. **Coding Agent appends a response block** under the item — `> **Coding Agent response**`,
+   shape in `reference/doc-ownership.md`. You do not write that block.
 3. **You independently verify against the code** — re-read the changed code; do not trust the
-   response's claim. Then append the **Resolution** tag line as the item's final line:
+   response's claim. Then append the `> **Resolution:**` tag line (shape in
+   `templates/code-review-finding.md`) as the item's final line:
    - `fixed` — verified the change resolves it.
    - `wont-fix: <reason>` — agreed it should not change.
    - `decision: <text>` — resolved by a recorded user/judgement call (record the call).
@@ -83,7 +84,7 @@ For each finding, the cycle is:
    under it. An untagged item blocks `section-archive` (`procedures/section-archive.md`),
    which forces another response cycle or a user tie-break. Do not tag to unblock.
 
-Never edit the Coding Agent's response lines. Never write a `> Coding Agent response:` block.
+Never edit the Coding Agent's response lines. Never write a `> **Coding Agent response**` block.
 
 ### 5. Route issues that aren't plain code findings
 

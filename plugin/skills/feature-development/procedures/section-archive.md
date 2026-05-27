@@ -6,7 +6,7 @@ Close a build section when every item in its `code-review/<section>.md` is tagge
 
 - Build phase is active (`build/` exists; `build/PROGRESS.md` shows the section row).
 - `build/code-review/<section>.md` exists with at least one item.
-- Every item carries one of the four tags: `fixed`, `wont-fix: <reason>`, `decision: <text>`, `spec-changed: <link>`. Tags are written by the **Review Agent** after independently verifying the Coding Agent's response and the code (see `reference/doc-ownership.md`).
+- Every item carries one of the four tags on its final `> **Resolution:**` line (canonical shape in `templates/code-review-finding.md`): `fixed`, `wont-fix: <reason>`, `decision: <text>`, `spec-changed: <link>`. Tags are written by the **Review Agent** after independently verifying the Coding Agent's response and the code (see `reference/doc-ownership.md`).
 
 If any item is untagged, surface and refuse to archive. The Coding Agent does **not** self-tag to clear the block — surface the untagged items, identify whether each is awaiting a Coding Agent response or awaiting Review Agent verification, and stop. Resolution lands through the normal review cycle (or user tie-break).
 

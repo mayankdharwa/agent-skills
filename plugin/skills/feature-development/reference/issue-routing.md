@@ -6,7 +6,7 @@ Apply in order:
 
 1. **Answerable or applicable now without user input?**
    - Exploration: no — exploration decisions need user lock. Skip to step 2.
-   - Build, mechanical fix by the Coding Agent: apply. *Only if a Review Agent surfaced it*, append a `> Coding Agent response:` block under the item describing the action; the Review Agent verifies and writes the `fixed` tag. Otherwise no entry.
+   - Build, mechanical fix by the Coding Agent: apply. *Only if a Review Agent surfaced it*, append a `> **Coding Agent response**` block under the item describing the action; the Review Agent verifies and writes the `fixed` tag. Otherwise no entry.
 
 2. **Needs user input now and user is available?** Discuss → lock as a `Review comment` callout (exploration; route to `procedures/unit-lock.md`) or, for a build code-review item, the Coding Agent records the user's call in its response block and applies the change; the Review Agent verifies and writes the `decision: <text>` tag.
 

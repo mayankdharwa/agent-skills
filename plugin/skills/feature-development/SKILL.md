@@ -13,7 +13,7 @@ Do not engage for bugfixes, small refactors, single-file edits, or tasks expecte
 
 ## Roles
 
-- **Coding Agent** — drives work across phases. The skill, when invoked, acts as the Coding Agent **by default**. In code-review, appends a `> Coding Agent response:` block under each item (action taken or refusal reason). Does not write tag lines.
+- **Coding Agent** — drives work across phases. The skill, when invoked, acts as the Coding Agent **by default**. In code-review, appends a `> **Coding Agent response**` block under each item (action taken or refusal reason; shape in `reference/doc-ownership.md`). Does not write tag lines.
 - **Review Agent** — owns `build/code-review/<section>.md`. Appends findings, and after the Coding Agent posts a response, independently verifies against the code and writes the resolution tag (`fixed` / `wont-fix:` / `decision:` / `spec-changed:`). Entered by an explicit role declaration at invocation (see below); its build-phase entry and loop are `procedures/code-review.md`.
 - **User** — locks decisions, confirms protected-doc edits, answers open questions, breaks ties when Review Agent and Coding Agent disagree.
 
@@ -53,7 +53,8 @@ If `PROGRESS.md` is malformed or unreadable, surface and ask. Do not guess.
 - Defer a unit / can't lock yet → `procedures/defer.md`
 - Topic done / all rows `✅` in topic → `procedures/topic-lock.md`
 - All exploration topics locked / ready to distill spec → `procedures/distill.md`
-- Invoked as Review Agent / review the active build section → `procedures/code-review.md`
+- Invoked as Review Agent (to review the active build section) → `procedures/code-review.md`
+- Findings awaiting a Coding Agent response → respond inline per `reference/doc-ownership.md` (Coding Agent appends the `> **Coding Agent response**` block; does not tag)
 - Section done / all `code-review/<section>.md` items tagged → `procedures/section-archive.md`
 - Surgically reopen / proposed edit to `spec/*` → `procedures/surgical-reopen.md`
 - Add open question / resolve `Q<N>` → `procedures/open-questions.md`
