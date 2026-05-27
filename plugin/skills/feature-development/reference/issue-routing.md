@@ -1,0 +1,17 @@
+# Where does this go?
+
+Read when an issue surfaces mid-work — a question, a finding, a concern, or a fix — and it is unclear where to log it. This rule picks *which* artifact to touch; the action-routing table in `SKILL.md` then picks the procedure that touches it.
+
+Apply in order:
+
+1. **Answerable or applicable now without user input?**
+   - Exploration: no — exploration decisions need user lock. Skip to step 2.
+   - Build, mechanical fix by the Coding Agent: apply. Log as `fixed` in `code-review/<section>.md` *only if a Review Agent surfaced it*; otherwise no entry.
+
+2. **Needs user input now and user is available?** Discuss → lock as a `Review comment` callout (exploration; route to `procedures/unit-lock.md`) or as a `decision:` tag (build code-review).
+
+3. **Needs user input later?** Route to `procedures/defer.md`. The two-path question creates an `OPEN-QUESTIONS.md` entry with `blocks:` or a reference-creation job under `references/`. The current row gets a `— deferred: <pointer>` marker.
+
+4. **Resolution requires modifying a locked spec?** Route to `procedures/surgical-reopen.md`. Trigger is recorded wherever the issue surfaced.
+
+**One-shot rule:** every issue lands in exactly one place. If it changes form (e.g., an open question becomes a decision), update the original entry to point to the new home — do not duplicate.
