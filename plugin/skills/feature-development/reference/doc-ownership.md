@@ -16,5 +16,5 @@ Read before editing any tracked file. Edits land per the role and the path.
 
   Review Agent reads the response, verifies against the code, and writes the tag. If the Review Agent disagrees with a refusal, it leaves the item untagged and appends a follow-up finding — the section cannot archive until every item carries a tag, which forces resolution.
 - `OPEN-QUESTIONS.md` — add entries freely. Resolving requires user confirmation.
-- `spec/*`, `OBJECTIVE.md`, `DECISIONS.md`, `MIGRATION-CHECKLIST.md`, `references/*` — confirm with user before any edit.
+- `spec/*`, `OBJECTIVE.md`, `DECISIONS.md`, `MIGRATION-CHECKLIST.md`, `TECH-DEBT.md`, `references/*` — confirm with user before any edit.
 - `_archive/*` — never edit. Only move files in.

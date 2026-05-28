@@ -15,3 +15,12 @@ Apply in order:
 4. **Resolution requires modifying a locked spec?** Route to `procedures/surgical-reopen.md`. Trigger is recorded wherever the issue surfaced.
 
 **One-shot rule:** every issue lands in exactly one place. If it changes form (e.g., an open question becomes a decision), update the original entry to point to the new home — do not duplicate.
+
+## Out-of-tree procedures
+
+Two procedures are user-invoked and intentionally not enumerated above. The decision tree does not route to them; the user invokes them directly when the observation fits.
+
+- `procedures/migration-checklist.md` — work owned by another team or in another codebase. Use when the issue isn't fixable inside this feature's tree at all.
+- `procedures/tech-debt.md` — own-codebase, non-blocking code-quality follow-up (refactor, naming, util extraction, "do it this way not that way"). Use when the code works but warrants a later cleanup pass. Not a resolution path for Review Agent findings.
+
+If an observation matches one of these, do not force it through the four-step tree — invoke the procedure directly.

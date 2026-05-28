@@ -64,11 +64,21 @@ Gate 3 (Mandatory migration closed):      [PASS | FAIL | N/A>
 Overall: [PROJECT DONE | NOT DONE — see failures]
 ```
 
-### 5. If all gates pass
+### 5. Heads-up: open `TD<N>` items
 
-Report: all three gates pass; the project is done. Mention what stays in place (top-level `PROGRESS.md` at all-`✅` never archives; the feature dir is historical documentation, do not delete unless docs drift from code), what's archived (all non-top-level `PROGRESS.md` files, already moved during normal phase termination), the list of any open `Independent and Important` migration items (these may remain open indefinitely), and prompt the user to consider whether to announce or change project status (e.g., release note).
+If `docs/<feature>/TECH-DEBT.md` exists, count entries whose `Status:` is `[ ] Pending`. If the count `K > 0`, append a non-blocking line to the report:
 
-### 6. If gates fail
+```
+Heads-up (non-blocking): <K> open TD item(s) in TECH-DEBT.md.
+```
+
+If `K == 0` (or the file does not exist), emit nothing. `TECH-DEBT.md` items do not gate project-done — this is informational only.
+
+### 6. If all gates pass
+
+Report: all three gates pass; the project is done. Mention what stays in place (top-level `PROGRESS.md` at all-`✅` never archives; the feature dir is historical documentation, do not delete unless docs drift from code), what's archived (all non-top-level `PROGRESS.md` files, already moved during normal phase termination), the list of any open `Independent and Important` migration items (these may remain open indefinitely), the count of any open `TD<N>` items (non-blocking; may remain open indefinitely), and prompt the user to consider whether to announce or change project status (e.g., release note).
+
+### 7. If gates fail
 
 Surface the report as-is. Do NOT auto-resolve any of the failures. The user must:
 - Close out remaining `🚧` phase work (route to relevant procedure).

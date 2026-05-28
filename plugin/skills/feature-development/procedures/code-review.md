@@ -80,7 +80,13 @@ For each finding, the cycle is:
    - `wont-fix: <reason>` — agreed it should not change.
    - `decision: <text>` — resolved by a recorded user/judgement call (record the call).
    - `spec-changed: <link>` — needs a locked-spec change; link the surgical-reopen/OPEN-QUESTIONS entry.
-4. **Disagree with a refusal?** Leave the item **untagged** and append a follow-up finding
+4. **Agree-but-out-of-section-scope.** When the Coding Agent's response is "valid
+   observation, out of section scope," do not auto-tag. Surface to the user — they decide
+   whether to log it as a TD entry (`procedures/tech-debt.md` Add mode → then tag the
+   finding `wont-fix: see TD<N>`) or close without one (`wont-fix: <reason>`). The user's
+   call, not the Review Agent's. The Review Agent never invokes `procedures/tech-debt.md`
+   itself.
+5. **Disagree with a refusal?** Leave the item **untagged** and append a follow-up finding
    under it. An untagged item blocks `section-archive` (`procedures/section-archive.md`),
    which forces another response cycle or a user tie-break. Do not tag to unblock.
 

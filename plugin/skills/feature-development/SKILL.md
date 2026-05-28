@@ -60,6 +60,7 @@ If `PROGRESS.md` is malformed or unreadable, surface and ask. Do not guess.
 - Add open question / resolve `Q<N>` → `procedures/open-questions.md`
 - Add a reference / new doc in `references/` → `procedures/references.md`
 - Add migration item / close `<id>` → `procedures/migration-checklist.md`
+- Add tech-debt item / close `TD<N>` → `procedures/tech-debt.md`
 - Decision affects multiple features → `procedures/cross-feature-lift.md`
 - Is the project done / final gate check → `procedures/project-done-check.md`
 - An issue surfaced mid-work / unclear where to log it → `reference/issue-routing.md`
@@ -78,6 +79,7 @@ Read on-demand when the topic comes up:
 - `reference/issue-routing.md` — the "Where does this go?" decision rule for mid-work issues.
 - `reference/lock-semantics.md` — the three lock scopes (unit / topic / phase) and the phase-termination gates.
 - `reference/migration-checklist-shape.md` — file-level structure, item ID, tags, and item shape for `MIGRATION-CHECKLIST.md`.
+- `reference/tech-debt-shape.md` — file-level structure, item ID, and item shape for `TECH-DEBT.md` (non-blocking own-codebase follow-ups).
 
 ## File templates
 
