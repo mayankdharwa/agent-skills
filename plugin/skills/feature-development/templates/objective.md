@@ -12,9 +12,15 @@
 
 - <bullet>
 - <bullet>
-- <bullet>
 
 ## Out of scope
+
+- <bullet>
+- <bullet>
+
+## Systems in play
+
+<!-- Optional notepad: codebases / services touched, deprecated, or worth investigating. Not consumed by routing. -->
 
 - <bullet>
 - <bullet>
