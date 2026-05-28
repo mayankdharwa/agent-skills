@@ -1,9 +1,9 @@
 # Code review (build phase — Review Agent entry)
 
-The entry point when the skill is invoked in the **Review Agent** role (the invocation
-declares it, e.g. "You are the Code Review Agent"; see SKILL.md "Role declaration on
-invocation"). The skill defaults to the Coding Agent — this procedure runs only under
-an explicit Review Agent declaration.
+The entry point when the skill is invoked in the **Review Agent** role — selected by the
+`review` argument (or the prose synonym "You are the Code Review Agent"); see SKILL.md
+"Role declaration on invocation". The skill defaults to the Coding Agent; this procedure
+runs only under an explicit Review Agent selection.
 
 Governs the *ceremony* of reviewing: where to look, where findings land, the finding and
 resolution shapes, and the verify-then-tag loop. The *substance* of the review — what to

@@ -102,4 +102,4 @@ Report: which `TD<N>` closed.
 
 ## Project-done relationship
 
-`TECH-DEBT.md` items do **not** gate `procedures/project-done-check.md`. They are intentionally non-blocking. Open `TD<N>` items are surfaced as a heads-up during the final check (count of remaining open items) but never block.
+Non-blocking — see `reference/tech-debt-shape.md` "Project-done gate" for the rule, and `procedures/project-done-check.md` step 5 for how the heads-up is produced.

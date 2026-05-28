@@ -1,6 +1,6 @@
 ---
 name: feature-development
-description: Use when bootstrapping a new feature under `docs/<feature>/`, locking units, deferring questions, distilling spec, archiving build sections, surgically reopening locked phases, or checking project-done. Operates a three-phase exploration → spec → build process for medium-to-large backend features.
+description: Use when bootstrapping a new feature under `docs/<feature>/`, locking units, deferring questions, distilling spec, archiving build sections, surgically reopening locked phases, or checking project-done. Operates a three-phase exploration → spec → build process for medium-to-large backend features. Invoke with arg `review` to act as the Review Agent during build.
 ---
 
 # feature-development
@@ -14,14 +14,21 @@ Do not engage for bugfixes, small refactors, single-file edits, or tasks expecte
 ## Roles
 
 - **Coding Agent** — drives work across phases. The skill, when invoked, acts as the Coding Agent **by default**. In code-review, appends a `> **Coding Agent response**` block under each item (action taken or refusal reason; shape in `reference/doc-ownership.md`). Does not write tag lines.
-- **Review Agent** — owns `build/code-review/<section>.md`. Appends findings, and after the Coding Agent posts a response, independently verifies against the code and writes the resolution tag (`fixed` / `wont-fix:` / `decision:` / `spec-changed:`). Entered by an explicit role declaration at invocation (see below); its build-phase entry and loop are `procedures/code-review.md`.
+- **Review Agent** — owns `build/code-review/<section>.md`. Appends findings, and after the Coding Agent posts a response, independently verifies against the code and writes the resolution tag (`fixed` / `wont-fix:` / `decision:` / `spec-changed:`). Entered by the `review` skill arg (see below); its build-phase entry and loop are `procedures/code-review.md`.
 - **User** — locks decisions, confirms protected-doc edits, answers open questions, breaks ties when Review Agent and Coding Agent disagree.
 
 ### Role declaration on invocation
 
-The skill operates as **one** role per session. Default is the Coding Agent. To run as the Review Agent instead, the invocation declares it — e.g. starting a fresh session and invoking the skill with a prompt like "You are the Code Review Agent" (or "Review Agent"). Treat any such role-naming declaration as selecting that role for the whole session.
+The skill operates as **one** role per session. Role is selected by the skill argument:
 
-Run state detection either way (below). Then route by role: a Review Agent declaration with build phase active → `procedures/code-review.md`. No declaration → Coding Agent; route by the action as usual. The two roles never edit each other's lines in `build/code-review/<section>.md` (see `reference/doc-ownership.md`).
+- no arg → **Coding Agent** (default)
+- `review` → **Review Agent**
+
+Invocation: `Skill(skill="feature-development", args="review")`. A prose declaration in the invocation prompt ("You are the Code Review Agent" / "You are the Review Agent") is accepted as a synonym for `review`. Treat either form as selecting that role for the whole session — start a fresh session for the Review Agent so its read of the code is independent.
+
+The `review` argument covers both posting new findings and verifying Coding Agent responses; `procedures/code-review.md` picks the branch from `build/code-review/<section>.md` state. There is no separate `verify` arg.
+
+Run state detection either way (below). Then route by role: Review Agent with build phase active → `procedures/code-review.md`. Coding Agent → route by the action as usual. The two roles never edit each other's lines in `build/code-review/<section>.md` (see `reference/doc-ownership.md`).
 
 In the build phase, the cycle is TDD: write tests → write code → review → respond → independently verify and tag → repeat. Each section in `build/` carries dual test+code status (see `templates/progress-build.md`).
 
@@ -42,7 +49,7 @@ In the build phase, the cycle is TDD: write tests → write code → review → 
 2. Read `docs/<feature>/PROGRESS.md`. Identify which of the three phase rows (`exploration`, `spec`, `build`) is `🚧`. `references/` is a sidecar — no phase row.
 3. If a phase row is `🚧`, read the pointer it carries (e.g., `→ exploration/schema/PROGRESS.md`) for the active topic / section.
 4. Read `OPEN-QUESTIONS.md` index to know what's blocked.
-5. Route by role and action (see below). Under a Review Agent declaration with build phase active, route to `procedures/code-review.md`.
+5. Route by role and action (see below). Under a Review Agent selection (`review` arg) with build phase active, route to `procedures/code-review.md`.
 
 If `PROGRESS.md` is malformed or unreadable, surface and ask. Do not guess.
 

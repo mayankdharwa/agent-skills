@@ -38,10 +38,7 @@ Add or close items in `MIGRATION-CHECKLIST.md`. Tracks work owned by external te
 
    If the prefix is ambiguous or could collide with another team in the same file, ask user. Numbering is per-team monotonic; each team's counter is independent (`V1, V2, ...` separate from `F1, F2, ...`).
 
-4. **Ask for tag**. One of:
-   - **Mandatory** — must be done before project go-live. Blocks cutover.
-   - **Optional** — can be done later; does not block.
-   - **Independent and Important** — work stands on its own merit; other projects benefit; does not gate this project.
+4. **Ask for tag**. One of `Mandatory` / `Optional` / `Independent and Important` — see `reference/migration-checklist-shape.md` "Tags" for definitions.
 
 5. **Ask for substantive content** (user-provided):
    - *Today* — current state.
@@ -106,6 +103,7 @@ Report: which ID closed, and the Mandatory-items-remaining count (or that all Ma
 
 - Item ID collision (manual edit introduced a duplicate): surface and ask user to fix; do not silently renumber.
 - Closing an already-closed item: surface and ask whether the user means to amend the date.
+- Closing an item ID that doesn't exist: surface and list open items under that team's prefix.
 - Tag is something other than the three valid values: surface and ask.
 
 ## Postconditions

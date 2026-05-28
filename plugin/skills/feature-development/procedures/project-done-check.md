@@ -72,7 +72,7 @@ If `docs/<feature>/TECH-DEBT.md` exists, count entries whose `Status:` is `[ ] P
 Heads-up (non-blocking): <K> open TD item(s) in TECH-DEBT.md.
 ```
 
-If `K == 0` (or the file does not exist), emit nothing. `TECH-DEBT.md` items do not gate project-done — this is informational only.
+If `K == 0` (or the file does not exist), emit nothing. Heads-up only; not a gate — see `reference/tech-debt-shape.md` "Project-done gate".
 
 ### 6. If all gates pass
 
