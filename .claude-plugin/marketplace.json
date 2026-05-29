@@ -12,7 +12,7 @@
       "name": "mayank-skills",
       "source": "./plugin",
       "description": "Personal skills, commands, and workflow automation",
-      "version": "0.4.2"
+      "version": "0.5.0"
     }
   ]
 }

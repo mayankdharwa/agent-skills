@@ -21,6 +21,7 @@ agent-skills/
 | `coding-rules` | auto-skill | Reads second-brain rules before writing any code |
 | `feature-development` | auto-skill | Drives a multi-phase exploration → spec → build process for a feature |
 | `consistency-review` | auto-skill | Reviews a set of markdown files for internal consistency (cross-file contradictions, broken links) via two deterministic scripts |
+| `polish-language` | user-invoked skill | Strips "we used to do X but now do Y" residue from a single markdown/text file, leaving clean present-tense statements |
 
 ---
 
