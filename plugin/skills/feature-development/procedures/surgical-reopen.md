@@ -56,6 +56,7 @@ Determine which topic the edit belongs to:
 - `spec/APIS.md` → `exploration/apis/`
 - `spec/JOBS.md` → `exploration/jobs/`
 - `spec/CODE-FILES.md` → `exploration/code-structure/`
+- Any extra spec file folded from `custom/` during distillation (e.g., `spec/INTEGRATIONS.md`) → `exploration/custom/`. Ask the user which sub-exploration under `custom/` the edit reopens (read `exploration/custom/INDEX.md` to list candidates). The resurrected `PROGRESS.md` is `exploration/custom/PROGRESS.md`; the initial `🚧` row names the sub-exploration. Subsequent steps treat that sub-exploration as the unit being reopened. The Review comment callout lands in whichever internal file inside `custom/<sub-exploration>/` the user designates (same rule as in `procedures/custom.md` sub-exploration lock).
 
 Create new `exploration/<topic>/PROGRESS.md` (NOT edit an archive). Use `templates/progress-topic.md` with `## Current focus — surgical reopen` header and a narrative naming the unit being reopened and the trigger. Initial row: one `🚧` row for the unit being reopened. Presence of this file signals the phase is reopened.
 

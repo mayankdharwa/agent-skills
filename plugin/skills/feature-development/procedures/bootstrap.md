@@ -56,12 +56,13 @@ Path: `docs/<feature>/`. Create the following silently after content is gathered
 **Do NOT create:**
 - `MIGRATION-CHECKLIST.md` — created lazily on first migration item (see `procedures/migration-checklist.md`).
 - `references/` and `references/INDEX.md` — created lazily on first reference (see `procedures/references.md`).
+- `exploration/custom/` — optional 5th exploration topic; created lazily on first sub-exploration (see `procedures/custom.md`, `reference/custom-shape.md`).
 - `spec/` and its four files — created at exploration phase-lock during distillation.
 - `build/` — created when build phase starts.
 
 ### 5. Summarise and propose next step
 
-Report: feature dir created, PROGRESS state, and prompt for which exploration topic to enter first (one of: schema / apis / jobs / code-structure). Wait for the user to pick.
+Report: feature dir created, PROGRESS state, and prompt for which exploration topic to enter first (one of: schema / apis / jobs / code-structure). Wait for the user to pick. The optional `custom/` topic is not offered at kickoff — it's the escape hatch for design work that doesn't fit the four standard topics and is created lazily when the user identifies such work (see `procedures/custom.md`).
 
 ### 6. When user picks the first topic
 

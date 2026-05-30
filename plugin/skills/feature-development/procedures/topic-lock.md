@@ -1,6 +1,6 @@
 # Topic-lock
 
-Lock an entire exploration topic. Triggered when every non-deferred row in the topic `PROGRESS.md` is `✅`. Runs a DECISIONS sweep on the topic's `Review comment` callouts, then archives the topic `PROGRESS.md`.
+Lock an entire exploration topic. Triggered when every non-deferred row in the topic `PROGRESS.md` is `✅`. Runs a DECISIONS sweep on the topic's `Review comment` callouts, then archives the topic `PROGRESS.md`. Applies to all five topics — the four standard topics (`schema`, `apis`, `jobs`, `code-structure`) and `custom` if it exists.
 
 ## Preconditions
 
@@ -31,7 +31,7 @@ If user picks "scope change", route to a mini scope-change flow:
 
 ### 2. DECISIONS sweep (judgment, walks user through)
 
-Read the topic's `*-EXPLORATION.md` file(s). Enumerate every `Review comment #N` callout in the topic. Skip any callout whose decision has already been lifted to `DECISIONS.md` via immediate-lift (check `DECISIONS.md` `Source:` lines).
+Read the topic's `*-EXPLORATION.md` file(s). For the `custom` topic, walk `exploration/custom/**/*.md` and exclude `exploration/custom/INDEX.md`, `exploration/custom/PROGRESS.md`, and anything inside any `_archive/` directory (including nested archives a user may maintain inside a sub-exploration folder). Enumerate every `Review comment #N` callout across the read files. Skip any callout whose decision has already been lifted to `DECISIONS.md` via immediate-lift (check `DECISIONS.md` `Source:` lines).
 
 For each remaining callout, apply the three lift criteria from `reference/lift-criteria.md`.
 
@@ -68,9 +68,9 @@ Confirm via `ls exploration/<topic>/` — `PROGRESS.md` is no longer at the live
 
 ### 5. Update top-level `PROGRESS.md`
 
-Remove the pointer line for this topic. If three other topic pointers remain under the `🚧 exploration` row, leave the row as is. If this was the last topic pointer, the `🚧 exploration` row stays `🚧` until all four topics lock.
+Remove the pointer line for this topic. If other topic pointers remain under the `🚧 exploration` row, leave the row as is. The `🚧 exploration` row stays `🚧` until every live topic locks.
 
-Check whether all four exploration topics are now locked (`ls docs/<feature>/exploration/` — every topic has no `PROGRESS.md`, only `_archive/` and exploration doc).
+Check whether all live exploration topics are now locked — the four standard topics plus `custom` if `exploration/custom/` exists. A topic is locked when its `PROGRESS.md` lives only in `_archive/`. Run `ls docs/<feature>/exploration/` to enumerate; check each.
 
 If yes: route to `procedures/distill.md` for one-pass spec distillation.
 

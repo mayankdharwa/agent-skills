@@ -1,10 +1,11 @@
 # Spec distillation
 
-One-pass distillation across all four spec files at exploration phase-lock. Triggered when all four topics are locked. Writes locked, clean reference material — no review comments, no open questions, no alternatives.
+One-pass distillation across all spec files at exploration phase-lock. Triggered when every live topic is locked — the four standard topics plus `custom/` if it exists. Writes locked, clean reference material — no review comments, no open questions, no alternatives.
 
 ## Preconditions
 
-- All four exploration topics are locked (`exploration/<topic>/PROGRESS.md` exists in none of them — only in `_archive/`).
+- All four standard exploration topics are locked (`exploration/<topic>/PROGRESS.md` exists in none of them — only in `_archive/`).
+- If `exploration/custom/` exists, its `PROGRESS.md` is also archived (custom topic is locked).
 
 ## Steps
 
@@ -12,9 +13,9 @@ One-pass distillation across all four spec files at exploration phase-lock. Trig
 
 `mkdir docs/<feature>/spec/`.
 
-### 2. Walk the four spec files
+### 2. Walk the spec files
 
-The four files are written together in one pass — do not lock one before starting the next. Cross-topic discoveries during distillation may require all four to be revised. **If distillation requires a second pass on the same file, that's a smell — surface to user that exploration may not have actually locked.**
+The four standard spec files (plus any extra files generated from `custom/` sub-explorations — see step 2a) are written together in one pass. Do not lock one before starting the next. Cross-topic discoveries during distillation may require revisions across files. **If distillation requires a second pass on the same file, that's a smell — surface to user that exploration may not have actually locked.**
 
 For each file:
 
@@ -46,11 +47,29 @@ From `exploration/code-structure/STRUCTURE-EXPLORATION.md` (and `FILE-EXPLORATIO
 - Modifications to existing files: path + what changes.
 - Top-level services, controllers, jobs, DTOs.
 
-### 3. Draft all four files together, then write
+### 2a. Fold custom sub-explorations (if `custom/` exists)
 
-Draft `spec/SCHEMA.md`, `spec/APIS.md`, `spec/JOBS.md`, `spec/CODE-FILES.md` in parallel based on locked exploration. **Surface all four drafts together** before writing any to disk — a cross-topic discovery in one draft may force revision in another, and locking one file first would force a second pass on the others.
+If `exploration/custom/` was active during exploration, read `exploration/custom/INDEX.md` to enumerate sub-explorations. For each sub-exploration, prompt the user for fold target(s):
 
-Each draft includes a one-line summary of contents (e.g., table count, endpoint count). User reviews all four; confirms or asks for revisions. Apply revisions. Write all four to disk in one step.
+> Sub-exploration: `<name>` — `<INDEX.md hook>`
+> Fold into which spec file(s)? Choose one or more:
+>   - SCHEMA.md
+>   - APIS.md
+>   - JOBS.md
+>   - CODE-FILES.md
+>   - NEW: `<filename>` (creates a new spec file, e.g., `INTEGRATIONS.md`)
+
+Multiple targets are valid: e.g., `exotel-applets` may fold into both `APIS.md` (the webhook endpoints) and a new `spec/INTEGRATIONS.md` (the vendor-side applet shape).
+
+For each fold target, extract the locked content from the sub-exploration's internal files (the `Review comment` callouts decide what's locked) and group into the target file under a section heading naming the sub-exploration's domain.
+
+If the user names a new spec file, capture its filename and one-line purpose; it's created in step 3 alongside the standard four.
+
+### 3. Draft all spec files together, then write
+
+Draft `spec/SCHEMA.md`, `spec/APIS.md`, `spec/JOBS.md`, `spec/CODE-FILES.md`, and any extra files from custom fold targets in parallel based on locked exploration. **Surface all drafts together** before writing any to disk — a cross-topic discovery in one draft may force revision in another, and locking one file first would force a second pass on the others.
+
+Each draft includes a one-line summary of contents (e.g., table count, endpoint count). User reviews all; confirms or asks for revisions. Apply revisions. Write all to disk in one step.
 
 Lean on mechanical organisation (grouping, extracting from callouts), not judgment — locked decisions ARE the spec.
 
@@ -77,5 +96,6 @@ Report distillation complete, exploration and spec rows now `✅`, and prompt th
 ## Postconditions
 
 - `docs/<feature>/spec/SCHEMA.md`, `APIS.md`, `JOBS.md`, `CODE-FILES.md` all exist.
+- Any additional spec files generated from `custom/` fold targets (e.g., `spec/INTEGRATIONS.md`) exist.
 - No `docs/<feature>/spec/PROGRESS.md` exists (spec has no progress tracker by design).
 - Top-level `PROGRESS.md` shows `exploration ✅` and `spec ✅` — the `spec` row goes straight from `⏳` to `✅`, never `🚧`.

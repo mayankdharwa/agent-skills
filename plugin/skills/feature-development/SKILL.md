@@ -58,6 +58,7 @@ If `PROGRESS.md` is malformed or unreadable, surface and ask. Do not guess.
 - Start a new feature / no feature dir exists → `procedures/bootstrap.md`
 - Lock a unit / approve a unit → `procedures/unit-lock.md`
 - Defer a unit / can't lock yet → `procedures/defer.md`
+- Add a custom sub-exploration / lock one → `procedures/custom.md`
 - Topic done / all rows `✅` in topic → `procedures/topic-lock.md`
 - All exploration topics locked / ready to distill spec → `procedures/distill.md`
 - Invoked as Review Agent (to review the active build section) → `procedures/code-review.md`
@@ -87,6 +88,7 @@ Read on-demand when the topic comes up:
 - `reference/lock-semantics.md` — the three lock scopes (unit / topic / phase) and the phase-termination gates.
 - `reference/migration-checklist-shape.md` — file-level structure, item ID, tags, and item shape for `MIGRATION-CHECKLIST.md`.
 - `reference/tech-debt-shape.md` — file-level structure, item ID, and item shape for `TECH-DEBT.md` (non-blocking own-codebase follow-ups).
+- `reference/custom-shape.md` — file-level structure and distillation fold rules for the optional `exploration/custom/` topic (sub-explorations that don't fit the standard four).
 
 ## File templates
 

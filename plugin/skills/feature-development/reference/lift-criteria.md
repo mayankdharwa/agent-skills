@@ -16,7 +16,7 @@ Expect roughly 10–20% of callouts / tags to qualify.
 
 ## Sweep cadences
 
-- **Topic-lock** — scan the topic's `*-EXPLORATION.md` `Review comment` callouts before archiving topic `PROGRESS.md`.
+- **Topic-lock** — scan the topic's `*-EXPLORATION.md` `Review comment` callouts before archiving topic `PROGRESS.md`. For the `custom` topic, the sweep walks all `.md` files inside each `exploration/custom/<sub-exploration>/` folder (excluding `INDEX.md`, `PROGRESS.md`, and any nested `_archive/`) — see `procedures/custom.md` and `reference/custom-shape.md`.
 - **Section-archive** — scan `build/code-review/<section>.md` `decision:` tags before archiving.
 - **Immediate lift** — at any time within a topic or section, when a decision is obviously course-altering. The inline callout / tag stays in place with a backlink as normal; the entry lands in `DECISIONS.md` straight away. Immediate-lifted decisions are skipped during the topic-lock or section-archive sweep (check `DECISIONS.md` `Source:` lines for pre-existing entries).
 
