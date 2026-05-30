@@ -18,8 +18,8 @@ exploration/custom/
   PROGRESS.md                       standard topic progress; units = sub-explorations
   _archive/
     PROGRESS_<YYYY-MM-DD>_<seq>.md  archived at topic-lock
-  <sub-exploration>/                user-defined internal structure
-    ...                             user names files; skill does not prescribe
+  <sub-exploration>/                flexible internal shape; drafted via authoring workflow
+    ...                             filenames not prescribed
   <sub-exploration>/
     ...
 ```
@@ -45,11 +45,39 @@ Standard topic progress per `templates/progress-topic.md`. Units are sub-explora
 
 ### Sub-exploration folder
 
-User-defined internal structure. The skill never prescribes filenames inside. Examples of shapes users might choose:
+Internal structure is flexible — the skill does not prescribe filenames. Common shapes:
 
-- A single `APPLETS-EXPLORATION.md` (mirrors standard-topic shape).
+- A single `<NAME>-EXPLORATION.md` (mirrors standard-topic shape).
 - A primary doc plus auxiliary files (`flow-diagrams.md`, `applet-1.md`, `applet-2.md`).
 - A nested `PROGRESS.md` of the sub-exploration's own units, if the sub-exploration is large enough to warrant finer-grained tracking. Optional — the parent `custom/PROGRESS.md` row is the lock that matters.
+
+## Authoring workflow inside a sub-exploration
+
+The agent drafts content collaboratively with the user — it does not leave the folder empty for the user to populate alone. The loop:
+
+1. **Agree on structure.** Ask the user what shape the sub-exploration takes (single doc vs primary + auxiliary vs nested-PROGRESS) and what sections the primary doc needs. Write the outline file(s) — headings only, plus a one-line hook under each describing what the section will cover.
+
+2. **Estimate size and pick a cadence.** Anticipate how large the document will get and confirm the cadence with the user before drafting. Two options:
+   - **Whole-doc, then item-by-item review.** Draft every section in one pass, then walk the user through the inline questions one at a time.
+   - **Section-by-section.** Draft one section, user reviews and answers its questions, draft the next. Use this when the doc is large or when later sections depend on decisions made in earlier ones.
+
+3. **Fill sections the agent understands.** Where the meaning of a section is clear from the outline and from material in `references/`, draft it using the agent's understanding of the domain. Pull from `references/<file>.md` where applicable.
+
+4. **Mark unknowns inline.** Anywhere the agent is guessing, missing context, or sees a branch the user needs to decide, drop a blockquote callout in place:
+   ```markdown
+   > **Question:** <one specific question>
+
+   > **Note for user:** <observation or assumption the user should confirm>
+   ```
+   If you find yourself about to draft a passage in a spot you don't actually understand, stop and add the callout instead. If a section can't be drafted without an answer, write the callout and leave the section stubbed.
+
+   These callouts are **scaffolding**, not the decision record. Unlike `Review comment #N` callouts (which persist as the durable decision record at sub-exploration lock) and `OPEN-QUESTIONS.md` entries (which persist across phases), `Question:` / `Note for user:` callouts are removed once the answer is incorporated in step 5. None should remain in the doc at lock time.
+
+5. **Surface questions one at a time.** After drafting (whole-doc cadence) or after each section (section-by-section cadence), walk the user through the inline callouts one by one. Incorporate each answer into the prose and remove the callout. If a question can't be answered now, route to `OPEN-QUESTIONS.md` per `procedures/defer.md` and remove the inline callout (it now lives as a deferred question, not scaffolding). Durable decisions worth preserving are *not* minted as `Review comment #N` during the authoring loop — they are formalised at sub-exploration lock via `procedures/custom.md`, which routes through `procedures/unit-lock.md` and carries the lock ritual (user confirmation, monotonic numbering, decision/why content).
+
+6. **Lock the sub-exploration** once every section is filled and every inline callout is resolved — sub-exploration lock per `procedures/custom.md`.
+
+The user remains the authority: every draft is a proposal, and the user can rewrite, restructure, or scrap it. The agent's job is to do the legwork — propose structure, fill what it can, surface what it can't — not to gatekeep the shape.
 
 ## Lock granularity
 

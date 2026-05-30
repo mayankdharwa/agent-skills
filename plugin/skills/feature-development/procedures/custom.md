@@ -2,7 +2,7 @@
 
 The `exploration/custom/` topic is an optional 5th exploration step for sub-explorations that don't fit the standard four (`schema`, `apis`, `jobs`, `code-structure`). Typical fit: vendor integration artifacts that the feature *designs* but that live outside the codebase (e.g., new Exotel applet shapes, new external webhook contracts, new email template designs). Reference material *about* the existing external system belongs in `references/`; design of the *new* artifacts belongs here.
 
-Lazy-created on first sub-exploration. Each sub-exploration is the unit of lock. Internal structure inside a sub-exploration folder is user-defined — the skill enforces only the topic-level shape (INDEX.md, PROGRESS.md, archive layout). See `reference/custom-shape.md`.
+Lazy-created on first sub-exploration. Each sub-exploration is the unit of lock. The skill enforces the topic-level shape (INDEX.md, PROGRESS.md, archive layout); internal structure inside a sub-exploration folder is flexible and is drafted collaboratively with the user via the authoring workflow in `reference/custom-shape.md`.
 
 ## Preconditions
 
@@ -42,7 +42,7 @@ If `custom/` already exists, skip to step 4.
 
 ### 4. Create the sub-exploration folder
 
-Create `exploration/custom/<sub-exploration>/`. Leave it empty. The user populates internal structure as they explore — the skill does not prescribe filenames inside.
+Create `exploration/custom/<sub-exploration>/`. Outline and content come in step 7 via the authoring workflow in `reference/custom-shape.md`.
 
 ### 5. Update INDEX.md
 
@@ -62,9 +62,9 @@ Add a row to `## Progress` as `⏳` (consistent with how new units are added to 
 
 One `🚧` at a time per `reference/smells.md` — when the user starts work on this sub-exploration, promote silently to `🚧`.
 
-### 7. Summarise and propose next step
+### 7. Summarise and enter the authoring workflow
 
-Three to six lines per `SKILL.md` Operating posture rule 8. Cover: sub-exploration folder created, INDEX.md hook added, PROGRESS.md row state, and an explicit Next up — ask the user what they want to draft first inside the sub-exploration folder (the first internal file, an outline, a flow diagram, etc.). The skill does not author the content; the prompt anchors the user's next action.
+Three to six lines per `SKILL.md` Operating posture rule 8. Cover: sub-exploration folder created, INDEX.md hook added, PROGRESS.md row state. Then enter the authoring workflow in `reference/custom-shape.md` — step 1 (agree on structure) runs first, step 2 (pick a cadence: whole-doc-then-review vs section-by-section) follows once the outline is in hand. The summary's "Next up" asks the structure question and notes that the cadence question comes next, so the user can redirect either before drafting begins.
 
 ## Sub-exploration lock
 
@@ -91,12 +91,11 @@ Deferred sub-exploration rows participate in the loop-back at custom-topic-lock 
 
 - Sub-exploration folder name collision: surface; ask for a more specific name.
 - INDEX.md missing when sub-exploration folders already exist: drift — surface and offer to reconstruct from `ls custom/`.
-- User wants the skill to author internal sub-exploration content: refuse; custom is user-driven by design.
 - User tries to add a sub-exploration that clearly fits an existing topic (e.g., a new internal API): surface and suggest routing to the appropriate topic instead.
 
 ## Postconditions
 
 - `exploration/custom/INDEX.md` contains one line per sub-exploration.
 - `exploration/custom/PROGRESS.md` has one row per sub-exploration with its current status icon — `⏳` until work starts, `🚧` while in flight, `✅` once locked.
-- Each sub-exploration has its own folder under `custom/`; internal structure is user-defined.
+- Each sub-exploration has its own folder under `custom/`; internal shape is flexible and is drafted via the authoring workflow in `reference/custom-shape.md`.
 - Top-level `PROGRESS.md` has `- 🚧 custom → exploration/custom/PROGRESS.md` under `🚧 exploration` while the topic is active.
